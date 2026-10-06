@@ -129,9 +129,9 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'proj-06',
-    title: 'Top Secret Project',
-    blurb: 'This file is currently redacted. Awaiting declassification in the near future. Stay tuned.',
-    tags: ['COMING SOON', 'REDACTED'],
+    title: 'Kurippu',
+    blurb: 'An elder-friendly, bilingual medication management and prescription scanning application powered by Gemini 1.5 Flash for accurate OCR.',
+    tags: ['React', 'Vite', 'Gemini OCR', 'Tailwind'],
     role: 'Lead Developer',
     boardPos: [0.5, 0.82],
   },
