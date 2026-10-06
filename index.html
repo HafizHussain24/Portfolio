@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ── SEO ──────────────────────────────────────────────────────── -->
+  <title>SUBJECT X – Frontend Developer &amp; Creative Engineer | CASE FILE</title>
+  <meta name="description" content="Portfolio of Subject X — Frontend & Web Developer, UI/UX designer, aspiring game dev. An interactive retro noir experience set in Ashfall City." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://your-domain.com/" /> <!-- [TODO] update -->
+
+  <!-- ── Open Graph / Twitter Card ─────────────────────────────── -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://your-domain.com/" />
+  <meta property="og:title"       content="SUBJECT X – CASE FILE Portfolio" />
+  <meta property="og:description" content="A retro noir interactive portfolio. You are the detective. Find the vigilante." />
+  <meta property="og:image"       content="https://your-domain.com/og-preview.png" /> <!-- [TODO] add preview image -->
+
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="SUBJECT X – CASE FILE Portfolio" />
+  <meta name="twitter:description" content="A retro noir interactive portfolio. You are the detective. Find the vigilante." />
+  <meta name="twitter:image"       content="https://your-domain.com/og-preview.png" />
+
+  <!-- ── Theme ─────────────────────────────────────────────────── -->
+  <meta name="theme-color" content="#050508" />
+
+  <!-- ── Favicon (placeholder — replace with emblem SVG) ─────── -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- ── Preconnect for Google Fonts ──────────────────────────── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- ── Canvas ────────────────────────────────────────────────────── -->
+  <canvas id="canvas" aria-label="Interactive 3D portfolio scene" role="img"></canvas>
+
+  <!-- ── Fade overlay (scene transitions) ──────────────────────────── -->
+  <div id="fade-overlay" aria-hidden="true"></div>
+
+  <!-- ── Loading bar ──────────────────────────────────────────────── -->
+  <div id="loading-bar" style="width:0%" aria-hidden="true"></div>
+
+  <!-- ── WebGL unavailable fallback ─────────────────────────────── -->
+  <div id="webgl-fallback" role="alert" aria-live="assertive">
+    <h2>WebGL Unavailable</h2>
+    <p>Your browser or device does not support WebGL, which is required for the full experience.</p>
+    <a href="/plain.html">View the accessible plain-text version →</a>
+  </div>
+
+  <!-- ── No-script fallback ─────────────────────────────────────── -->
+  <noscript>
+    <div class="noscript-box">
+      <h2 style="color:#fff; font-size:1.4rem; font-family:monospace">CASE FILE</h2>
+      <p style="color:#6e6e8a; font-family:monospace; max-width:36ch">
+        JavaScript is required for the interactive experience.
+      </p>
+      <a href="/plain.html" style="color:#00e5ff; font-family:monospace; font-weight:700; font-size:1.1rem">
+        View the accessible plain-text portfolio →
+      </a>
+      <p style="color:#5a5a78; font-size:0.8rem; font-family:monospace; margin-top:1rem">
+        Contact: hello@example.com <!-- [TODO] update -->
+      </p>
+    </div>
+  </noscript>
+
+  <!-- ── App entry ─────────────────────────────────────────────── -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

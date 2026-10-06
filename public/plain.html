@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plain Version – HAFIZ HUSSAIN Portfolio</title>
+  <meta name="description" content="Portfolio of HAFIZ HUSSAIN — Front-end Developer, WebXR, UI/UX. Plain, accessible, no JavaScript required." />
+  <style>
+    /* ─── Design tokens ──────────────────────────────────────── */
+    :root {
+      --bg:      #0a0a12;
+      --surface: #12121e;
+      --border:  #1e1e32;
+      --accent:  #00e5ff;   /* [TODO] match WORLD.accentColor */
+      --amber:   #ffb347;
+      --text:    #d4d4e8;
+      --muted:   #6e6e8a;
+      --heading: #ffffff;
+      --radius:  6px;
+      --max-w:   860px;
+      --font:    'Inter', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Skip link */
+    .skip {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);
+      color: #000;
+      padding: 0.5rem 1rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      z-index: 999;
+      transition: top 0.2s;
+      text-decoration: none;
+    }
+    .skip:focus { top: 1rem; }
+
+    /* Layout */
+    header, main, footer { max-width: var(--max-w); margin-inline: auto; padding: 2rem 1.5rem; }
+    header { padding-top: 3rem; border-bottom: 1px solid var(--border); }
+
+    /* Typography */
+    h1, h2, h3 { color: var(--heading); font-weight: 700; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
+    h2 { font-size: 1.4rem; margin-bottom: 1rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; }
+    h3 { font-size: 1.1rem; color: var(--accent); }
+
+    .tagline { color: var(--muted); font-size: 1.1rem; margin-top: 0.5rem; }
+    .badge   { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.2rem 0.6rem; font-size: 0.78rem; color: var(--accent); margin: 0.2rem; }
+
+    a        { color: var(--accent); text-underline-offset: 3px; }
+    a:hover  { color: #fff; }
+
+    /* Sections */
+    section { margin-top: 3rem; }
+
+    /* About */
+    .about-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+    @media (min-width: 600px) { .about-grid { grid-template-columns: 1fr 1fr; } }
+    .about-item h3 { margin-bottom: 0.5rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    /* Projects */
+    .projects { display: grid; gap: 1.5rem; }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); }
+    .project-card h3 { color: var(--heading); margin-bottom: 0.4rem; }
+    .project-card .blurb { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
+    .project-links { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.9rem; }
+    .game-badge { display: inline-block; background: var(--amber); color: #000; font-size: 0.7rem; font-weight: 700; border-radius: 3px; padding: 0.1rem 0.4rem; margin-left: 0.5rem; vertical-align: middle; }
+
+    /* Contact */
+    .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; }
+    .contact-links a {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.5rem 1rem;
+      color: var(--text); text-decoration: none; font-size: 0.95rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding-top: 2rem; color: var(--muted); font-size: 0.85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+
+    /* Back link banner */
+    .webgl-banner {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      text-align: center; padding: 0.75rem 1.5rem; font-size: 0.9rem;
+    }
+    .webgl-banner a { font-weight: 700; }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Banner linking back to the 3D experience -->
+  <div class="webgl-banner" role="banner">
+    This is the accessible plain-text version.
+    <a href="/">View the full interactive experience →</a>
+  </div>
+
+  <header>
+    <h1>The Architect<br><span style="color: var(--accent)">// HAFIZ HUSSAIN</span></h1>
+    <p class="tagline">Front-end Developer · WebXR · UI/UX</p>
+    <p style="margin-top:0.75rem; color: var(--muted);">📍 Kochi &nbsp;·&nbsp; <span style="color: var(--accent)">Open to opportunities</span></p>
+  </header>
+
+  <main id="main">
+    <!-- ── About ──────────────────────────────────────────────────── -->
+    <section aria-labelledby="about-heading">
+      <h2 id="about-heading">The Suspect</h2>
+      <p>Third-year B.Tech Information Technology student at CUSAT. Crafting modern front-end experiences and immersive WebXR applications. Constantly exploring the boundaries of UI/UX and game development.</p>
+
+      <div class="about-grid" style="margin-top:1.5rem">
+        <div class="about-item">
+          <h3>Skills</h3>
+          <div>
+            <span class="badge">TypeScript</span>
+            <span class="badge">React</span>
+            <span class="badge">Next.js</span>
+            <span class="badge">Three.js</span>
+            <span class="badge">WebXR</span>
+            <span class="badge">WebAssembly</span>
+            <span class="badge">Rust</span>
+            <span class="badge">C++</span>
+            <span class="badge">Python</span>
+            <span class="badge">Godot</span>
+          </div>
+        </div>
+        <div class="about-item">
+          <h3>Known Associates (tools)</h3>
+          <div>
+            <span class="badge">Node.js</span>
+            <span class="badge">Tailwind CSS</span>
+            <span class="badge">Framer Motion</span>
+            <span class="badge">Figma</span>
+            <span class="badge">A-Frame</span>
+            <span class="badge">MATLAB</span>
+            <span class="badge">Simulink</span>
+          </div>
+        </div>
+        <div class="about-item">
+          <h3>Status</h3>
+          <p style="color: var(--accent)">Open to opportunities</p>
+        </div>
+        <div class="about-item">
+          <h3>Location</h3>
+          <p>Kochi</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects ───────────────────────────────────────────────── -->
+    <section aria-labelledby="projects-heading">
+      <h2 id="projects-heading">The Evidence (Projects)</h2>
+      <div class="projects">
+        <article class="project-card">
+          <h3>Kochi Metro Rail Ltd. Website</h3>
+          <p class="blurb">Redesigned the official corporate website from scratch, delivered in under one month for KMRL.</p>
+          <div><span class="badge">UI/UX</span><span class="badge">Front-end Design</span><span class="badge">Web Design</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Frontend Developer (Team of 4)</p>
+          <div class="project-links">
+            <a href="https://corporate.kochimetro.org" target="_blank" rel="noopener">Live ↗</a>
+            <a href="https://youtu.be/2GbmBVTsvtI?si=YYzuZstpbU2tz1RX" target="_blank" rel="noopener">Interview ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>KRISHI</h3>
+          <p class="blurb">Knowledge-driven Real-time Intelligent System for Harvest Improvement. Hackathon-winning MVP with OpenCV vegetation analysis and AI crop suggestions.</p>
+          <div><span class="badge">Python</span><span class="badge">FastAPI</span><span class="badge">OpenCV</span><span class="badge">Hugging Face</span><span class="badge">Tailwind CSS</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Full Stack / AI Integration</p>
+        </article>
+
+        <article class="project-card">
+          <h3>Revive - Mental Wellness</h3>
+          <p class="blurb">A comprehensive dopamine detox and mental wellness app designed to help youth manage stress and reduce digital addiction.</p>
+          <div><span class="badge">React 18</span><span class="badge">TypeScript</span><span class="badge">Tailwind</span><span class="badge">Framer Motion</span><span class="badge">Vite</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Frontend Developer</p>
+        </article>
+
+        <article class="project-card">
+          <h3>A Vibrant Isle <span class="game-badge">GAME</span></h3>
+          <p class="blurb">A cozy, story-driven adventure game where you explore a mysterious grayscale island to recover the lost shards of color.</p>
+          <div><span class="badge">Game Design</span><span class="badge">Story-Driven</span><span class="badge">Pixel Art</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Game Developer</p>
+          <div class="project-links">
+            <a href="https://orangejuice24.itch.io/vibrant-isle" target="_blank" rel="noopener">Play ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>Cusat Ride <span class="game-badge">GAME</span></h3>
+          <p class="blurb">An endless 3D survival riding game. Navigate the CUSAT campus, dodge stray animals, and outrun the MVD.</p>
+          <div><span class="badge">3D</span><span class="badge">Web Game</span><span class="badge">Physics Simulation</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Game Developer</p>
+          <div class="project-links">
+            <a href="https://cusat-ride-useless.vercel.app/" target="_blank" rel="noopener">Play ↗</a>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <h3>Top Secret Project</h3>
+          <p class="blurb">This file is currently redacted. Awaiting declassification in the near future. Stay tuned.</p>
+          <div><span class="badge">COMING SOON</span><span class="badge">REDACTED</span></div>
+          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Lead Developer</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── Contact ───────────────────────────────────────────────── -->
+    <section aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Send a Signal</h2>
+      <p style="margin-bottom:1.5rem">The best way to reach me is by email. I also hang out on GitHub.</p>
+      <ul class="contact-links">
+        <li><a href="mailto:hello@example.com">✉ hello@example.com</a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener">⌥ GitHub</a></li>
+        <li><a href="https://linkedin.com/in/" target="_blank" rel="noopener">in LinkedIn</a></li>
+        <li><a href="https://x.com/" target="_blank" rel="noopener">𝕏 Twitter / X</a></li>
+      </ul>
+
+      <!-- Simple mailto form fallback -->
+      <form
+        action="mailto:hello@example.com"
+        method="POST"
+        enctype="text/plain"
+        style="margin-top:2rem"
+        aria-label="Contact form"
+      >
+        <h3 style="margin-bottom:1rem; color:var(--heading)">Drop a message</h3>
+        <div style="display:grid; gap:1rem">
+          <label>
+            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Your name</span>
+            <input type="text" name="name" required autocomplete="name"
+              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none;"
+            />
+          </label>
+          <label>
+            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Your email</span>
+            <input type="email" name="email" required autocomplete="email"
+              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none;"
+            />
+          </label>
+          <label>
+            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Message</span>
+            <textarea name="message" rows="5" required
+              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none; resize:vertical;"
+            ></textarea>
+          </label>
+          <button type="submit"
+            style="align-self:start; background:var(--accent); color:#000; font-weight:700; border:none; border-radius:var(--radius); padding:0.7rem 1.5rem; cursor:pointer; font-size:1rem;"
+          >Send →</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2024 Subject X &nbsp;·&nbsp; Ashfall City, PD Case #∞</span>
+    <a href="/">← Full 3D Experience</a>
+  </footer>
+
+  <noscript>
+    <p style="text-align:center; padding:2rem; color:#d4d4e8">
+      JavaScript is disabled. This plain version contains all portfolio content without JS.
+    </p>
+  </noscript>
+</body>
+</html>
