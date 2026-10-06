@@ -8,14 +8,14 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Code-split each scene into its own chunk
-        manualChunks: {
-          three: ['three'],
-          gsap:  ['gsap'],
-          'scene-boot':   ['./src/scenes/BootScene'],
-          'scene-rooftop':['./src/scenes/RooftopScene'],
-          'scene-desk':   ['./src/scenes/DeskScene'],
-          'scene-board':  ['./src/scenes/BoardScene'],
-          'scene-street': ['./src/scenes/StreetScene'],
+        manualChunks(id) {
+          if (id.includes('node_modules/three')) return 'three';
+          if (id.includes('node_modules/gsap')) return 'gsap';
+          if (id.includes('src/scenes/BootScene')) return 'scene-boot';
+          if (id.includes('src/scenes/RooftopScene')) return 'scene-rooftop';
+          if (id.includes('src/scenes/DeskScene')) return 'scene-desk';
+          if (id.includes('src/scenes/BoardScene')) return 'scene-board';
+          if (id.includes('src/scenes/StreetScene')) return 'scene-street';
         },
       },
     },
