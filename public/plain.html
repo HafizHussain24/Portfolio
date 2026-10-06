@@ -1,286 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plain Version – HAFIZ HUSSAIN Portfolio</title>
-  <meta name="description" content="Portfolio of HAFIZ HUSSAIN — Front-end Developer, WebXR, UI/UX. Plain, accessible, no JavaScript required." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAFIZ HUSSAIN | Front-end Developer</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
-    /* ─── Design tokens ──────────────────────────────────────── */
     :root {
-      --bg:      #0a0a12;
-      --surface: #12121e;
-      --border:  #1e1e32;
-      --accent:  #00e5ff;   /* [TODO] match WORLD.accentColor */
-      --amber:   #ffb347;
-      --text:    #d4d4e8;
-      --muted:   #6e6e8a;
-      --heading: #ffffff;
-      --radius:  6px;
-      --max-w:   860px;
-      --font:    'Inter', 'Segoe UI', system-ui, sans-serif;
+      --bg: #050508;
+      --bg-gradient-start: #0a0a10;
+      --bg-gradient-end: #050508;
+      --surface: rgba(20, 20, 30, 0.4);
+      --surface-border: rgba(255, 255, 255, 0.05);
+      --primary: #00e5ff;
+      --secondary: #ff2266;
+      --amber: #ffb347;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --radius: 16px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      background: var(--bg);
+      background: linear-gradient(to bottom right, var(--bg-gradient-start), var(--bg-gradient-end));
       color: var(--text);
-      font-family: var(--font);
-      font-size: 1rem;
-      line-height: 1.7;
+      font-family: 'Outfit', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Skip link */
-    .skip {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      background: var(--accent);
-      color: #000;
-      padding: 0.5rem 1rem;
-      font-weight: 700;
-      border-radius: var(--radius);
-      z-index: 999;
-      transition: top 0.2s;
-      text-decoration: none;
+    /* Cinematic animated background */
+    .bg-grid {
+      position: fixed; inset: 0; z-index: -1;
+      background-size: 60px 60px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 10%, transparent 80%);
+      animation: pulseGrid 8s ease-in-out infinite alternate;
     }
-    .skip:focus { top: 1rem; }
+    @keyframes pulseGrid {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.05); }
+    }
 
+    /* Glowing Orbs */
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(100px); z-index: -2; opacity: 0.15;
+      animation: float 10s infinite ease-in-out alternate;
+    }
+    .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--primary); }
+    .orb-2 { bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: var(--secondary); animation-delay: -5s; }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 10%) scale(1.2); }
+    }
+
+    a { color: var(--primary); text-decoration: none; transition: 0.3s; }
+    a:hover { color: var(--secondary); text-shadow: 0 0 15px rgba(255, 34, 102, 0.5); }
+    
     /* Layout */
-    header, main, footer { max-width: var(--max-w); margin-inline: auto; padding: 2rem 1.5rem; }
-    header { padding-top: 3rem; border-bottom: 1px solid var(--border); }
+    .layout {
+      display: flex; flex-direction: column;
+      max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; gap: 6rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .layout { flex-direction: row; align-items: flex-start; }
+      header { position: sticky; top: 4rem; width: 40%; padding-right: 4rem; }
+      main { width: 60%; }
+    }
 
-    /* Typography */
-    h1, h2, h3 { color: var(--heading); font-weight: 700; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
-    h2 { font-size: 1.4rem; margin-bottom: 1rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; }
-    h3 { font-size: 1.1rem; color: var(--accent); }
+    /* Header & Hero */
+    h1 {
+      font-size: clamp(3rem, 5vw, 5rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 0.5rem;
+      text-shadow: 0 0 30px rgba(0, 229, 255, 0.2);
+    }
+    
+    .subtitle {
+      font-family: 'JetBrains Mono', monospace; font-size: 1.1rem;
+      color: var(--primary); margin-bottom: 1.5rem; letter-spacing: 0.5px;
+    }
+    
+    .location {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.9rem; color: var(--amber); margin-bottom: 2rem;
+      background: rgba(255, 179, 71, 0.1); padding: 0.25rem 0.75rem; border-radius: 20px;
+    }
 
-    .tagline { color: var(--muted); font-size: 1.1rem; margin-top: 0.5rem; }
-    .badge   { display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.2rem 0.6rem; font-size: 0.78rem; color: var(--accent); margin: 0.2rem; }
+    .bio p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem; max-width: 45ch; }
 
-    a        { color: var(--accent); text-underline-offset: 3px; }
-    a:hover  { color: #fff; }
+    .desktop-hint {
+      display: inline-flex; align-items: center; gap: 0.75rem; margin-top: 2rem;
+      color: #fff; font-size: 0.9rem; font-weight: 600; padding: 0.75rem 1.25rem;
+      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+      backdrop-filter: blur(10px); transition: 0.3s;
+    }
+    .desktop-hint:hover { background: rgba(0, 229, 255, 0.1); border-color: var(--primary); }
 
     /* Sections */
-    section { margin-top: 3rem; }
+    section { margin-bottom: 6rem; scroll-margin-top: 4rem; }
+    h2 {
+      font-size: 1.75rem; margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem;
+      color: #fff; font-weight: 800;
+    }
+    h2::after {
+      content: ''; display: block; flex: 1; height: 1px;
+      background: linear-gradient(to right, var(--surface-border), transparent);
+    }
 
-    /* About */
-    .about-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
-    @media (min-width: 600px) { .about-grid { grid-template-columns: 1fr 1fr; } }
-    .about-item h3 { margin-bottom: 0.5rem; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    /* Cards */
+    .card {
+      background: var(--surface); border: 1px solid var(--surface-border);
+      border-radius: var(--radius); padding: 2rem;
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(0, 229, 255, 0.3); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.1); }
+
+    /* Skills Grid */
+    .skills-group { margin-bottom: 2rem; }
+    .skills-group h3 { font-size: 1.1rem; color: #fff; margin-bottom: 1rem; font-family: 'JetBrains Mono', monospace; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .tag {
+      background: rgba(0, 0, 0, 0.3); border: 1px solid var(--surface-border);
+      padding: 0.5rem 1rem; border-radius: 8px; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; color: var(--text); transition: 0.3s;
+    }
+    .tag:hover { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 229, 255, 0.4); }
 
     /* Projects */
-    .projects { display: grid; gap: 1.5rem; }
-    .project-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: border-color 0.2s;
-    }
-    .project-card:hover { border-color: var(--accent); }
-    .project-card h3 { color: var(--heading); margin-bottom: 0.4rem; }
-    .project-card .blurb { color: var(--muted); font-size: 0.95rem; margin-bottom: 0.75rem; }
-    .project-links { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.9rem; }
-    .game-badge { display: inline-block; background: var(--amber); color: #000; font-size: 0.7rem; font-weight: 700; border-radius: 3px; padding: 0.1rem 0.4rem; margin-left: 0.5rem; vertical-align: middle; }
+    .projects-grid { display: flex; flex-direction: column; gap: 2rem; }
+    .project-card { display: flex; flex-direction: column; gap: 1rem; }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+    .project-title { font-size: 1.5rem; color: #fff; margin-bottom: 0.25rem; font-weight: 800; }
+    .project-role { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--secondary); }
+    .project-links { display: flex; gap: 1rem; }
+    .project-links a { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; padding-top: 1.5rem; }
+    .ptag { font-size: 0.75rem; padding: 0.25rem 0.75rem; background: rgba(255, 255, 255, 0.05); border-radius: 20px; color: var(--text-muted); }
 
-    /* Contact */
-    .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; }
-    .contact-links a {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 0.5rem 1rem;
-      color: var(--text); text-decoration: none; font-size: 0.95rem;
-      transition: border-color 0.2s, color 0.2s;
+    /* Form */
+    form { display: flex; flex-direction: column; gap: 1.5rem; }
+    label { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.5rem; }
+    input, textarea {
+      background: rgba(0,0,0,0.4); border: 1px solid var(--surface-border);
+      padding: 1rem; border-radius: 8px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 1rem;
+      outline: none; transition: 0.3s; width: 100%;
     }
-    .contact-links a:hover { border-color: var(--accent); color: var(--accent); }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--border); padding-top: 2rem; color: var(--muted); font-size: 0.85rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-
-    /* Back link banner */
-    .webgl-banner {
-      background: var(--surface); border-bottom: 1px solid var(--border);
-      text-align: center; padding: 0.75rem 1.5rem; font-size: 0.9rem;
+    input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 229, 255, 0.15); }
+    button[type="submit"] {
+      background: var(--text); color: var(--bg); font-family: 'Outfit', sans-serif;
+      font-weight: 800; font-size: 1.1rem; padding: 1rem 2rem; border: none; border-radius: 8px;
+      cursor: pointer; align-self: flex-start; transition: 0.3s;
     }
-    .webgl-banner a { font-weight: 700; }
+    button[type="submit"]:hover { background: var(--primary); box-shadow: 0 0 25px rgba(0, 229, 255, 0.4); transform: translateY(-2px); }
+
+    .socials { display: flex; gap: 1.5rem; margin-top: 3rem; flex-wrap: wrap; }
+    .socials a {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700;
+      padding: 0.75rem 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--surface-border);
+      border-radius: 8px; transition: 0.3s;
+    }
+    .socials a:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; color: #fff; }
+
+    footer {
+      padding-top: 2rem; border-top: 1px solid var(--surface-border);
+      color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Skip to content</a>
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-  <!-- Banner linking back to the 3D experience -->
-  <div class="webgl-banner" role="banner">
-    This is the accessible plain-text version.
-    <a href="/">View the full interactive experience →</a>
+  <div class="layout">
+    
+    <!-- HEADER (Sticky on Desktop) -->
+    <header>
+      <h1>HAFIZ HUSSAIN</h1>
+      <div class="subtitle">Front-end Developer · WebXR · UI/UX</div>
+      <div class="location">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        Kochi / Open to opportunities
+      </div>
+      
+      <div class="bio">
+        <p>Third-year B.Tech Information Technology student at CUSAT.</p>
+        <p>Crafting modern front-end experiences and immersive WebXR applications.</p>
+        <p>Constantly exploring the boundaries of UI/UX and game development.</p>
+      </div>
+
+      <a href="/?force3d=true" class="desktop-hint">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        Launch Interactive 3D WebGL Version
+      </a>
+      
+      <div class="socials" style="display: none;"> <!-- Hidden on mobile, handled in contact section -->
+        <a href="https://github.com/HafizHussain24" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/hafiz-hussain-265790329" target="_blank">LinkedIn</a>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT (Scrollable) -->
+    <main>
+      
+      <!-- SKILLS -->
+      <section id="skills">
+        <h2>CASE FILE: EXPERTISE</h2>
+        <div class="card">
+          <div class="skills-group">
+            <h3>CORE TECH</h3>
+            <div class="tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">React</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">Three.js</span>
+              <span class="tag">WebXR</span>
+              <span class="tag">WebAssembly</span>
+              <span class="tag">Rust</span>
+              <span class="tag">C++</span>
+              <span class="tag">Python</span>
+              <span class="tag">Godot</span>
+            </div>
+          </div>
+          <div class="skills-group" style="margin-bottom:0;">
+            <h3>KNOWN ASSOCIATES</h3>
+            <div class="tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Framer Motion</span>
+              <span class="tag">Figma</span>
+              <span class="tag">A-Frame</span>
+              <span class="tag">MATLAB</span>
+              <span class="tag">Simulink</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <h2>DECLASSIFIED PROJECTS</h2>
+        <div class="projects-grid">
+          
+          <!-- KMRL -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title">Kochi Metro Rail Ltd. Website</h3>
+                <div class="project-role">Frontend Developer (Team of 4)</div>
+              </div>
+              <div class="project-links">
+                <a href="https://corporate.kochimetro.org" target="_blank">Live Site ↗</a>
+                <a href="https://youtu.be/2GbmBVTsvtI?si=YYzuZstpbU2tz1RX" target="_blank">Video ↗</a>
+              </div>
+            </div>
+            <p>Redesigned the official corporate website from scratch, delivered in under one month for KMRL.</p>
+            <div class="project-tags">
+              <span class="ptag">UI/UX</span><span class="ptag">Front-end Design</span><span class="ptag">Web Design</span>
+            </div>
+          </div>
+
+          <!-- KRISHI -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title">KRISHI</h3>
+                <div class="project-role">Full Stack / AI Integration</div>
+              </div>
+            </div>
+            <p>Knowledge-driven Real-time Intelligent System for Harvest Improvement. Hackathon-winning MVP with OpenCV vegetation analysis and AI crop suggestions.</p>
+            <div class="project-tags">
+              <span class="ptag">Python</span><span class="ptag">FastAPI</span><span class="ptag">OpenCV</span><span class="ptag">Hugging Face</span><span class="ptag">Tailwind CSS</span>
+            </div>
+          </div>
+
+          <!-- Revive -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title">Revive - Mental Wellness</h3>
+                <div class="project-role">Frontend Developer</div>
+              </div>
+            </div>
+            <p>A comprehensive dopamine detox and mental wellness app designed to help youth manage stress and reduce digital addiction.</p>
+            <div class="project-tags">
+              <span class="ptag">React 18</span><span class="ptag">TypeScript</span><span class="ptag">Tailwind</span><span class="ptag">Framer Motion</span><span class="ptag">Vite</span>
+            </div>
+          </div>
+
+          <!-- A Vibrant Isle -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title">A Vibrant Isle</h3>
+                <div class="project-role">Game Developer</div>
+              </div>
+              <div class="project-links">
+                <a href="https://orangejuice24.itch.io/vibrant-isle" target="_blank">Play on Itch.io ↗</a>
+              </div>
+            </div>
+            <p>A cozy, story-driven adventure game where you explore a mysterious grayscale island to recover the lost shards of color.</p>
+            <div class="project-tags">
+              <span class="ptag">Game Design</span><span class="ptag">Story-Driven</span><span class="ptag">Pixel Art</span>
+            </div>
+          </div>
+
+          <!-- Cusat Ride -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title">Cusat Ride</h3>
+                <div class="project-role">Game Developer</div>
+              </div>
+              <div class="project-links">
+                <a href="https://cusat-ride-useless.vercel.app/" target="_blank">Play Game ↗</a>
+              </div>
+            </div>
+            <p>An endless 3D survival riding game. Navigate the CUSAT campus, dodge stray animals, and outrun the MVD.</p>
+            <div class="project-tags">
+              <span class="ptag">3D</span><span class="ptag">Web Game</span><span class="ptag">Physics Simulation</span>
+            </div>
+          </div>
+
+          <!-- Secret -->
+          <div class="card project-card">
+            <div class="project-header">
+              <div>
+                <h3 class="project-title" style="color:var(--text-muted)">Top Secret Project</h3>
+                <div class="project-role" style="color:var(--secondary)">Lead Developer</div>
+              </div>
+            </div>
+            <p style="color:var(--text-muted)">This file is currently redacted. Awaiting declassification in the near future. Stay tuned.</p>
+            <div class="project-tags">
+              <span class="ptag" style="border: 1px dashed var(--text-muted)">COMING SOON</span><span class="ptag" style="border: 1px dashed var(--secondary); color:var(--secondary)">REDACTED</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <h2>ESTABLISH CONNECTION</h2>
+        <div class="card">
+          <p style="margin-bottom: 2rem;">Want to build something amazing? Check the dead drop or transmit a signal below.</p>
+          <form action="https://formspree.io/f/xnpjnpvy" method="POST">
+            <div style="display:flex; gap:1.5rem; flex-wrap:wrap;">
+              <label style="flex:1; min-width:200px;">
+                [ ALIAS ]
+                <input type="text" name="name" required placeholder="Name">
+              </label>
+              <label style="flex:1; min-width:200px;">
+                [ FREQUENCY ]
+                <input type="email" name="email" required placeholder="Email">
+              </label>
+            </div>
+            <label>
+              [ MESSAGE ]
+              <textarea name="message" rows="4" required placeholder="Commence transmission..."></textarea>
+            </label>
+            <button type="submit">TRANSMIT SIGNAL</button>
+          </form>
+        </div>
+        
+        <div class="socials">
+          <a href="mailto:hafiz200624@gmail.com" target="_blank">EMAIL</a>
+          <a href="https://github.com/HafizHussain24" target="_blank">GITHUB</a>
+          <a href="https://linkedin.com/in/hafiz-hussain-265790329" target="_blank">LINKEDIN</a>
+        </div>
+      </section>
+
+      <footer>
+        <div>© 2024 HAFIZ HUSSAIN. ALL RIGHTS RESERVED.</div>
+        <a href="/?force3d=true" style="color:var(--text-muted); text-decoration:underline;">Force 3D Boot</a>
+      </footer>
+
+    </main>
   </div>
 
-  <header>
-    <h1>The Architect<br><span style="color: var(--accent)">// HAFIZ HUSSAIN</span></h1>
-    <p class="tagline">Front-end Developer · WebXR · UI/UX</p>
-    <p style="margin-top:0.75rem; color: var(--muted);">📍 Kochi &nbsp;·&nbsp; <span style="color: var(--accent)">Open to opportunities</span></p>
-  </header>
-
-  <main id="main">
-    <!-- ── About ──────────────────────────────────────────────────── -->
-    <section aria-labelledby="about-heading">
-      <h2 id="about-heading">The Suspect</h2>
-      <p>Third-year B.Tech Information Technology student at CUSAT. Crafting modern front-end experiences and immersive WebXR applications. Constantly exploring the boundaries of UI/UX and game development.</p>
-
-      <div class="about-grid" style="margin-top:1.5rem">
-        <div class="about-item">
-          <h3>Skills</h3>
-          <div>
-            <span class="badge">TypeScript</span>
-            <span class="badge">React</span>
-            <span class="badge">Next.js</span>
-            <span class="badge">Three.js</span>
-            <span class="badge">WebXR</span>
-            <span class="badge">WebAssembly</span>
-            <span class="badge">Rust</span>
-            <span class="badge">C++</span>
-            <span class="badge">Python</span>
-            <span class="badge">Godot</span>
-          </div>
-        </div>
-        <div class="about-item">
-          <h3>Known Associates (tools)</h3>
-          <div>
-            <span class="badge">Node.js</span>
-            <span class="badge">Tailwind CSS</span>
-            <span class="badge">Framer Motion</span>
-            <span class="badge">Figma</span>
-            <span class="badge">A-Frame</span>
-            <span class="badge">MATLAB</span>
-            <span class="badge">Simulink</span>
-          </div>
-        </div>
-        <div class="about-item">
-          <h3>Status</h3>
-          <p style="color: var(--accent)">Open to opportunities</p>
-        </div>
-        <div class="about-item">
-          <h3>Location</h3>
-          <p>Kochi</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Projects ───────────────────────────────────────────────── -->
-    <section aria-labelledby="projects-heading">
-      <h2 id="projects-heading">The Evidence (Projects)</h2>
-      <div class="projects">
-        <article class="project-card">
-          <h3>Kochi Metro Rail Ltd. Website</h3>
-          <p class="blurb">Redesigned the official corporate website from scratch, delivered in under one month for KMRL.</p>
-          <div><span class="badge">UI/UX</span><span class="badge">Front-end Design</span><span class="badge">Web Design</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Frontend Developer (Team of 4)</p>
-          <div class="project-links">
-            <a href="https://corporate.kochimetro.org" target="_blank" rel="noopener">Live ↗</a>
-            <a href="https://youtu.be/2GbmBVTsvtI?si=YYzuZstpbU2tz1RX" target="_blank" rel="noopener">Interview ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <h3>KRISHI</h3>
-          <p class="blurb">Knowledge-driven Real-time Intelligent System for Harvest Improvement. Hackathon-winning MVP with OpenCV vegetation analysis and AI crop suggestions.</p>
-          <div><span class="badge">Python</span><span class="badge">FastAPI</span><span class="badge">OpenCV</span><span class="badge">Hugging Face</span><span class="badge">Tailwind CSS</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Full Stack / AI Integration</p>
-        </article>
-
-        <article class="project-card">
-          <h3>Revive - Mental Wellness</h3>
-          <p class="blurb">A comprehensive dopamine detox and mental wellness app designed to help youth manage stress and reduce digital addiction.</p>
-          <div><span class="badge">React 18</span><span class="badge">TypeScript</span><span class="badge">Tailwind</span><span class="badge">Framer Motion</span><span class="badge">Vite</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Frontend Developer</p>
-        </article>
-
-        <article class="project-card">
-          <h3>A Vibrant Isle <span class="game-badge">GAME</span></h3>
-          <p class="blurb">A cozy, story-driven adventure game where you explore a mysterious grayscale island to recover the lost shards of color.</p>
-          <div><span class="badge">Game Design</span><span class="badge">Story-Driven</span><span class="badge">Pixel Art</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Game Developer</p>
-          <div class="project-links">
-            <a href="https://orangejuice24.itch.io/vibrant-isle" target="_blank" rel="noopener">Play ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <h3>Cusat Ride <span class="game-badge">GAME</span></h3>
-          <p class="blurb">An endless 3D survival riding game. Navigate the CUSAT campus, dodge stray animals, and outrun the MVD.</p>
-          <div><span class="badge">3D</span><span class="badge">Web Game</span><span class="badge">Physics Simulation</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Game Developer</p>
-          <div class="project-links">
-            <a href="https://cusat-ride-useless.vercel.app/" target="_blank" rel="noopener">Play ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <h3>Top Secret Project</h3>
-          <p class="blurb">This file is currently redacted. Awaiting declassification in the near future. Stay tuned.</p>
-          <div><span class="badge">COMING SOON</span><span class="badge">REDACTED</span></div>
-          <p style="margin-top:0.5rem; font-size:0.85rem; color:var(--muted)">Role: Lead Developer</p>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ── Contact ───────────────────────────────────────────────── -->
-    <section aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Send a Signal</h2>
-      <p style="margin-bottom:1.5rem">The best way to reach me is by email. I also hang out on GitHub.</p>
-      <ul class="contact-links">
-        <li><a href="mailto:hafiz200624@gmail.com">✉ hafiz200624@gmail.com</a></li>
-        <li><a href="https://github.com/HafizHussain24" target="_blank" rel="noopener">⌥ GitHub</a></li>
-        <li><a href="https://linkedin.com/in/hafiz-hussain-265790329" target="_blank" rel="noopener">in LinkedIn</a></li>
-      </ul>
-
-      <!-- Formspree integration -->
-      <form
-        action="https://formspree.io/f/xnpjnpvy"
-        method="POST"
-        style="margin-top:2rem"
-        aria-label="Contact form"
-      >
-        <h3 style="margin-bottom:1rem; color:var(--heading)">Drop a message</h3>
-        <div style="display:grid; gap:1rem">
-          <label>
-            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Your name</span>
-            <input type="text" name="name" required autocomplete="name"
-              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none;"
-            />
-          </label>
-          <label>
-            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Your email</span>
-            <input type="email" name="email" required autocomplete="email"
-              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none;"
-            />
-          </label>
-          <label>
-            <span style="display:block; font-size:0.85rem; color:var(--muted); margin-bottom:0.3rem">Message</span>
-            <textarea name="message" rows="5" required
-              style="width:100%; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:0.6rem 0.8rem; color:var(--text); font:inherit; outline:none; resize:vertical;"
-            ></textarea>
-          </label>
-          <button type="submit"
-            style="align-self:start; background:var(--accent); color:#000; font-weight:700; border:none; border-radius:var(--radius); padding:0.7rem 1.5rem; cursor:pointer; font-size:1rem;"
-          >Send →</button>
-        </div>
-      </form>
-    </section>
-  </main>
-
-  <footer>
-    <span>© 2024 Subject X &nbsp;·&nbsp; Ashfall City, PD Case #∞</span>
-    <a href="/">← Full 3D Experience</a>
-  </footer>
-
-  <noscript>
-    <p style="text-align:center; padding:2rem; color:#d4d4e8">
-      JavaScript is disabled. This plain version contains all portfolio content without JS.
-    </p>
-  </noscript>
+  <script>
+    // Add subtle mouse-tracking hover effect to cards
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  </script>
 </body>
 </html>
