@@ -27,7 +27,7 @@ export const IDENTITY = {
     /** Hidden text revealed by magnifying glass in Desk scene */
     secrets: [
         '"Distinguishing marks: Pixel-perfect UI tendencies"',
-        '"Last seen: Debugging WebXR headsets at 3 AM"',
+        '"Last seen: Decoding bugs at 4 AM"',
         '"Known weakness: Infinite loops and unoptimized shaders"',
         '"Alias active in: Make-A-Ton & Hack Europa 2.0"',
     ],
